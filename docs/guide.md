@@ -26,6 +26,12 @@ Strict mode exits non-zero when the score is below 80:
 node dist/cli.js audit . --strict
 ```
 
+Use `--threshold` to change the strict-mode cutoff:
+
+```bash
+node dist/cli.js audit . --strict --threshold 90
+```
+
 ## JSON Output
 
 Use JSON output for automation:
@@ -35,3 +41,13 @@ node dist/cli.js audit . --json
 ```
 
 The JSON report includes the repo path, score, grade, category results, summary counts, and grouped recommendations.
+
+## Package Verification
+
+The package smoke test verifies the packed tarball, installs it into a temporary project, and runs the installed `repo-health` binary:
+
+```bash
+npm run test:pack
+```
+
+This checks the packaged CLI path, not just `node dist/cli.js`.
