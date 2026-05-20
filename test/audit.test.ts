@@ -40,11 +40,52 @@ describe("auditRepository", () => {
   });
 
   it("keeps scores within 0-100", () => {
-    for (const fixture of ["empty-repo", "partial-repo", "healthy-repo"]) {
+    for (const fixture of ["empty-repo", "partial-repo", "healthy-repo", "docs-only-repo", "python-repo", "broad-permissions-repo"]) {
       const report = auditRepository(path.join(fixturesPath, fixture));
       expect(report.score).toBeGreaterThanOrEqual(0);
       expect(report.score).toBeLessThanOrEqual(100);
     }
+  });
+
+  it("detects broad workflow permissions", () => {
+    const report = auditRepository(path.join(fixturesPath, "broad-permissions-repo"));
+    const ci = report.categories.find((category) => category.id === "ci");
+    const permissions = ci?.checks.find((check) => check.id === "workflow-permissions");
+
+    expect(permissions?.status).toBe("warn");
+  });
+
+  it("detects Python metadata without requiring Node metadata", () => {
+    const report = auditRepository(path.join(fixturesPath, "python-repo"));
+    const metadata = report.categories.find((category) => category.id === "packageMetadata");
+
+    expect(metadata?.checks[0]).toMatchObject({
+      id: "python-metadata",
+      status: "warn"
+    });
+  });
+
+  it("keeps JSON report shape stable", () => {
+    const report = auditRepository(path.join(fixturesPath, "healthy-repo"));
+
+    expect(Object.keys(report)).toEqual(["repoPath", "score", "grade", "categories", "summary", "recommendations"]);
+    expect(report.summary).toEqual({
+      passed: expect.any(Number),
+      warnings: expect.any(Number),
+      failed: expect.any(Number)
+    });
+    expect(report.recommendations).toEqual({
+      critical: expect.any(Array),
+      recommended: expect.any(Array),
+      niceToHave: expect.any(Array)
+    });
+    expect(report.categories[0]).toEqual({
+      id: expect.any(String),
+      label: expect.any(String),
+      score: expect.any(Number),
+      maxScore: expect.any(Number),
+      checks: expect.any(Array)
+    });
   });
 
   it("fails clearly for a missing path", () => {
@@ -84,6 +125,15 @@ describe("CLI output", () => {
     expect(result.stdout).toContain("Repo Health Score");
   });
 
+  it("exits zero in strict mode when custom threshold is lower than score", () => {
+    const result = spawnSync(process.execPath, [tsxCli, "src/cli.ts", "audit", path.join(fixturesPath, "empty-repo"), "--strict", "--threshold", "5"], {
+      cwd: repoRoot,
+      encoding: "utf8"
+    });
+
+    expect(result.status).toBe(0);
+  });
+
   it("exits zero in strict mode at or above threshold", () => {
     const result = spawnSync(process.execPath, [tsxCli, "src/cli.ts", "audit", path.join(fixturesPath, "healthy-repo"), "--strict"], {
       cwd: repoRoot,
@@ -91,5 +141,25 @@ describe("CLI output", () => {
     });
 
     expect(result.status).toBe(0);
+  });
+
+  it("exits one and prints a clear error for invalid paths", () => {
+    const result = spawnSync(process.execPath, [tsxCli, "src/cli.ts", "audit", path.join(fixturesPath, "missing")], {
+      cwd: repoRoot,
+      encoding: "utf8"
+    });
+
+    expect(result.status).toBe(1);
+    expect(result.stderr).toContain("Repository path does not exist or is not readable");
+  });
+
+  it("exits one for invalid strict threshold values", () => {
+    const result = spawnSync(process.execPath, [tsxCli, "src/cli.ts", "audit", path.join(fixturesPath, "healthy-repo"), "--strict", "--threshold", "101"], {
+      cwd: repoRoot,
+      encoding: "utf8"
+    });
+
+    expect(result.status).toBe(1);
+    expect(result.stderr).toContain("must be an integer from 0 to 100");
   });
 });
