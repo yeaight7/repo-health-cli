@@ -1,0 +1,19 @@
+{
+  "name": "healthy-repo",
+  "version": "1.0.0",
+  "description": "Healthy fixture",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://example.com/healthy-repo.git"
+  },
+  "keywords": ["fixture", "healthy"],
+  "bin": {
+    "healthy": "dist/cli.js"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "build": "tsc",
+    "typecheck": "tsc --noEmit"
+  }
+}
