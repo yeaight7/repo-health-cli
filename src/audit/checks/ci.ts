@@ -1,5 +1,6 @@
 import { listFiles, readText } from "../utils.js";
 import { scoreCategory } from "../scoring.js";
+import { hasBroadWorkflowPermissions } from "../detectors.js";
 import type { CategoryResult, CheckResult, RepoContext } from "../types.js";
 
 const WORKFLOW_EXTENSIONS = /\.(ya?ml)$/i;
@@ -56,7 +57,7 @@ export function auditCi({ repoPath }: RepoContext): CategoryResult {
             recommendation: "Add CI quality checks.",
             severity: "recommended"
           },
-    hasBroadPermissions(workflowText)
+    hasBroadWorkflowPermissions(workflowText)
       ? {
           id: "workflow-permissions",
           label: "Workflow permissions",
@@ -78,8 +79,4 @@ export function auditCi({ repoPath }: RepoContext): CategoryResult {
   ];
 
   return scoreCategory("ci", "CI / automation", checks);
-}
-
-function hasBroadPermissions(workflowText: string): boolean {
-  return /permissions:\s*write-all/i.test(workflowText) || /contents:\s*write/i.test(workflowText);
 }
