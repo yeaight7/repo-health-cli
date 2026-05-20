@@ -10,7 +10,14 @@ The CLI prints a compact terminal report by default and can emit JSON for automa
 
 ## Install
 
-This project is not published to npm by this repository yet. The unscoped `repo-health-cli` npm name is already present on npm, so publishing requires either package ownership or a rename/scoped package decision first.
+This project is published as `repo-health-audit` on npm and installs the `repo-health` command.
+
+Install globally after publication:
+
+```bash
+npm install -g repo-health-audit
+repo-health audit .
+```
 
 Use it locally from a cloned checkout:
 
