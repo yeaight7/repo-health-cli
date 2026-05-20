@@ -32,5 +32,17 @@ jobs:
       - name: Test
         run: npm test
 
+      - name: Dependency audit
+        run: npm audit --audit-level=high
+
       - name: Build
         run: npm run build
+
+      - name: Pack dry run
+        run: npm pack --dry-run
+
+      - name: Packed CLI smoke
+        run: npm run test:pack
+
+      - name: Verify local strict audit
+        run: node dist/cli.js audit . --strict
