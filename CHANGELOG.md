@@ -7,7 +7,7 @@
 - Add dependency audit, package smoke, and strict self-audit to CI.
 - Improve README, workflow permission, and release workflow detection.
 - Add fixtures for docs-only, Python metadata, and broad workflow permissions.
-- Document npm publishing constraints because the unscoped package name is already present on npm.
+- Rename npm package target to `repo-health-audit` while keeping the `repo-health` command.
 
 ## 0.1.0 - 2026-05-20
 
