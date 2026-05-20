@@ -1,5 +1,5 @@
 {
-  "name": "repo-health-cli",
+  "name": "repo-health-audit",
   "version": "0.1.1",
   "description": "Audit local repositories for open-source readiness and actionable health recommendations.",
   "type": "module",
