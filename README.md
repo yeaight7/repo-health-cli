@@ -10,7 +10,9 @@ The CLI prints a compact terminal report by default and can emit JSON for automa
 
 ## Install
 
-This package is not published to npm yet. Use it locally from a cloned checkout:
+This project is not published to npm by this repository yet. The unscoped `repo-health-cli` npm name is already present on npm, so publishing requires either package ownership or a rename/scoped package decision first.
+
+Use it locally from a cloned checkout:
 
 ```bash
 npm install
@@ -56,12 +58,19 @@ Fail CI-style when the score is below 80:
 repo-health audit . --strict
 ```
 
+Use a custom strict threshold:
+
+```bash
+repo-health audit . --strict --threshold 90
+```
+
 When running from source, replace `repo-health` with `node dist/cli.js` after `npm run build`, or use `npm run dev --`.
 
 ## Documentation
 
 - [Guide](docs/guide.md)
 - [Basic example](examples/basic.md)
+- [Release guide](docs/release.md)
 - [Contributing](CONTRIBUTING.md)
 - [Security policy](SECURITY.md)
 
@@ -122,6 +131,7 @@ Each check is scored as pass, warning, or fail. Category scores are rounded and 
 ```bash
 npm install
 npm test
+npm run test:pack
 npm run build
 npm run typecheck
 npm run dev -- audit .
@@ -129,7 +139,6 @@ npm run dev -- audit .
 
 ## Roadmap
 
-- Add a configurable threshold flag for strict mode.
 - Add richer rule explanations and remediation links.
 - Add optional GitHub API mode after local auditing is complete.
 - Add more ecosystem-specific metadata checks for Python, Rust, Go, and Java.
