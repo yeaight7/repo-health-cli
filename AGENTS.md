@@ -12,6 +12,7 @@
 
 ```bash
 npm test
+npm run test:pack
 npm run typecheck
 npm run build
 node dist/cli.js audit .
@@ -34,6 +35,7 @@ Run the narrowest relevant test first. Before calling work complete, run:
 
 ```bash
 npm test
+npm run test:pack
 npm run typecheck
 npm run build
 node dist/cli.js audit . --strict
