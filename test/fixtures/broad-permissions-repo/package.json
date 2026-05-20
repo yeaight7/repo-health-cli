@@ -1,0 +1,13 @@
+{
+  "name": "broad-permissions-repo",
+  "version": "0.1.0",
+  "description": "Broad permissions fixture",
+  "license": "Apache-2.0",
+  "repository": "https://example.com/broad-permissions-repo.git",
+  "keywords": ["fixture"],
+  "scripts": {
+    "test": "vitest run",
+    "build": "tsc",
+    "typecheck": "tsc --noEmit"
+  }
+}
