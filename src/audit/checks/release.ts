@@ -1,6 +1,7 @@
 import { execFileSync } from "node:child_process";
-import { hasAnyPath, listFiles, pathExists, readJson } from "../utils.js";
+import { hasAnyPath, listFiles, pathExists, readJson, readText } from "../utils.js";
 import { scoreCategory } from "../scoring.js";
+import { isReleaseWorkflow } from "../detectors.js";
 import type { CategoryResult, CheckResult, RepoContext } from "../types.js";
 
 type PackageJson = {
@@ -10,7 +11,7 @@ type PackageJson = {
 export function auditRelease({ repoPath }: RepoContext): CategoryResult {
   const packageJson = readJson<PackageJson>(repoPath, "package.json");
   const workflowFiles = listFiles(repoPath, ".github/workflows");
-  const releaseWorkflow = workflowFiles.some((file) => /release|publish/i.test(file));
+  const releaseWorkflow = workflowFiles.some((file) => isReleaseWorkflow(file, readText(repoPath, `.github/workflows/${file}`) ?? ""));
   const tagStatus = getTagStatus(repoPath);
   const checks: CheckResult[] = [
     tagStatus === "present"
