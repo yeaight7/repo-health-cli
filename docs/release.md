@@ -4,13 +4,9 @@ This repository has a GitHub release workflow that verifies package readiness wi
 
 ## Current Publishing Status
 
-The unscoped `repo-health-cli` package name already exists on npm at version `0.1.4` based on `npm view repo-health-cli name version --json`.
+The package is published as `repo-health-audit` because both `repo-health` and `repo-health-cli` are already present on npm.
 
-Do not run `npm publish` from this repository unless one of these is true:
-
-- npm ownership of `repo-health-cli` is confirmed
-- package name is changed
-- package is moved to an approved scope
+The package exposes the `repo-health` binary.
 
 ## Verification Before Publishing
 
@@ -42,4 +38,4 @@ The workflow intentionally does not publish to npm.
 
 ## Future npm Publishing
 
-Prefer npm trusted publishing with GitHub Actions OIDC when package ownership/name is resolved. Add `id-token: write` only when the npm trusted publisher is configured and the workflow contains a real publish step.
+Prefer npm trusted publishing with GitHub Actions OIDC for future automated publishing. Add `id-token: write` only when the npm trusted publisher is configured and the workflow contains a real publish step.
