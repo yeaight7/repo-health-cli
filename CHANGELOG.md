@@ -6,3 +6,5 @@
 - Add weighted scoring across README, licensing, CI, tests, package metadata, community, docs, release, and agent-readiness categories.
 - Add terminal and JSON output modes.
 - Add strict mode with default threshold 80.
+- Add configurable strict threshold support.
+- Add package tarball smoke testing and release dry-run workflow.
