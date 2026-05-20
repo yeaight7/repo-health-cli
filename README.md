@@ -4,6 +4,10 @@ Audit local repositories for open-source readiness and get a deterministic healt
 
 `repo-health-cli` is a Lighthouse-style CLI for GitHub repositories. It checks README quality, licensing, CI, tests, package metadata, community files, docs, release readiness, and agent-readiness in one local command.
 
+## Demo
+
+The CLI prints a compact terminal report by default and can emit JSON for automation. See the [basic example](examples/basic.md) for common commands.
+
 ## Install
 
 This package is not published to npm yet. Use it locally from a cloned checkout:
@@ -53,6 +57,13 @@ repo-health audit . --strict
 ```
 
 When running from source, replace `repo-health` with `node dist/cli.js` after `npm run build`, or use `npm run dev --`.
+
+## Documentation
+
+- [Guide](docs/guide.md)
+- [Basic example](examples/basic.md)
+- [Contributing](CONTRIBUTING.md)
+- [Security policy](SECURITY.md)
 
 ## Sample Output
 
