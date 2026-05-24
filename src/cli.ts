@@ -11,7 +11,7 @@ const program = new Command();
 program
   .name("repo-health")
   .description("Audit a local repository for open-source readiness.")
-  .version("0.1.2");
+  .version("0.1.3");
 
 program
   .command("audit")
