@@ -1,4 +1,4 @@
-name: Release Dry Run
+name: Release
 
 on:
   push:
@@ -43,6 +43,12 @@ jobs:
 
       - name: Packed CLI smoke
         run: npm run test:pack
+
+      - name: Run release preflight
+        run: npm run release:check
+
+      - name: Publish to npm
+        run: npm publish --access public
 
       - name: Verify local strict audit
         run: node dist/cli.js audit . --strict
