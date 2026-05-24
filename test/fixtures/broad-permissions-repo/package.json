@@ -1,6 +1,6 @@
 {
   "name": "broad-permissions-repo",
-  "version": "0.1.0",
+  "version": "0.1.3",
   "description": "Broad permissions fixture",
   "license": "Apache-2.0",
   "repository": "https://example.com/broad-permissions-repo.git",
