@@ -42,4 +42,4 @@ The workflow intentionally does not publish to npm.
 
 ## Notes
 
-Keep the npm trusted publisher configured before running the publish workflow. The dry-run workflow remains the safer default for release validation.
+Configure npm trusted publishing for this repository before running the publish workflow. The dry-run workflow remains the safer default for release validation.
