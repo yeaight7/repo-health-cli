@@ -47,4 +47,4 @@ jobs:
         run: node dist/cli.js audit . --strict
 
       - name: Publish to npm
-        run: npm publish --access public
+        run: npm publish --access public --provenance
